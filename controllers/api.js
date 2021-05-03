@@ -5,5 +5,9 @@ exports.getHello = (req, res, next) => {
 };
 
 exports.fileanalyse = (req, res, next) => {
-  res.json({ message: 'file analyze api' });
+  res.json({
+    name: req.file.originalname,
+    type: req.file.mimetype,
+    size: req.file.size,
+  });
 };

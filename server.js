@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
 var cors = require('cors');
-const path = require('path');
 
 const mongoose = require('mongoose');
 const defaultRoutes = require('./routes/default');
@@ -44,30 +43,9 @@ app.use(
 
 app.use(cors({ optionsSuccessStatus: 200 }));
 app.use(express.static('public'));
-// app.use('/images', express.static('images'));
-app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/', defaultRoutes);
 app.use('/api', apiRoutes);
 
-mongoose
-  .connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 5000,
-  })
-  .then(() => {
-    if (port == null || port == '') {
-      port = 8000;
-    }
-
-    listener = app.listen(port, function () {
-      console.log('Your app is listening on port ' + listener.address().port);
-    });
-  })
-  .catch(err => console.log(err));
-
-const connection = mongoose.connection;
-connection.on('error', console.error.bind(console, 'connection error:'));
-connection.once('open', () => {
-  console.log('MongoDB database connection established successfully');
+listener = app.listen(port, function () {
+  console.log('Your app is listening on port ' + listener.address().port);
 });
