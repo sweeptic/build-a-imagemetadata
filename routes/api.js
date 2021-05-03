@@ -4,4 +4,6 @@ const router = express.Router();
 
 router.get('/hello', apiController.getHello);
 
+router.post('/fileanalyse', apiController.fileanalyse);
+
 module.exports = router;
